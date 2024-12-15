@@ -24,29 +24,9 @@ const Today = () => {
     return format(date,'dd MMM hh:mm aa')
   }
 
-  // const choghadiyaMethod = (response: any) => {
-  //   const keys = Object.keys(response);
-
-  //   for (let key in response){
-  //     const choghadiya = response[key]
-      
-  //     const choghadiyaStartTime = new Date(choghadiya.starts_at)
-  //     const choghadiyaEndTime = new Date(choghadiya.ends_at)
-
-  //     const nextChoghadiya = response[key+1]
-  //     //const nextChoghadiyaStartTime = new Date(nextChoghadiya.starts_at)
-  //     //const nextChoghadiyaEndTime = new Date(nextChoghadiya.ends_at)
-  //     if(today >= choghadiyaStartTime && today <= choghadiyaEndTime){
-  //       setCurrentChoghadiya(choghadiya.name)
-  //       setNextChoghadiya(nextChoghadiya.name)
-  //       break
-  //     }
-  //   }
-  // }
 
   const choghadiyaMethod = (response: any) => {
     const keys = Object.keys(response);
-    console.log(`Choghadiya response:${JSON.stringify(response)}`);
     
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i];
@@ -73,21 +53,7 @@ const Today = () => {
   
 
   const yogaDurationMethod = (response:any) => {
-    /*
-        {
-            "1":{
-                "number":22,
-                "name":"Saadhya",
-                "completion":"2023-03-20 15:07:54",
-                "yoga_left_percentage":45.156916437536054
-            },
-            "2":{
-                "number":23,
-                "name":"Subha",
-                "completion":"2023-03-21 11:29:51"
-            }
-        }
-    */
+    
     const yogaArray = Object.values(response);
     setYoga(yogaArray);
     
@@ -102,17 +68,7 @@ const Today = () => {
   }
 
   const nakshatraDurationMethod = (response:any) => {
-    /*
-
-        {
-            "number":24,
-            "name":"Satabisha",
-            "starts_at":"2023-03-19 20:49:58",
-            "ends_at":"2023-03-20 18:24:01",
-            "remaining_percentage_at_given_time":57.428099228422795
-        }
-
-    */
+   
    const startTime = new Date(response.starts_at)
    const endTime = new Date(response.ends_at)
    setNakshatraName(response.name)
@@ -122,21 +78,6 @@ const Today = () => {
   }
 
   const goodAndBadTimesMethod = (response: any) => {
-
-    /*
-      {
-        "statusCode":200,
-        "abhijit_data":"{starts_at: 2023-03-20 11:59:57, ends_at: 2023-03-20 12:48:17}",
-        "amrit_kaal_data":"{starts_at: 2023-03-20 11:55:48.100000, ends_at: 2023-03-20 13:22:04.300000}",
-        "brahma_muhurat_data":"{starts_at: 2023-03-20 04:45:37, ends_at: 2023-03-20 05:33:37}",
-        "rahu_kaalam_data":"{starts_at: 2023-03-20 07:52:14.500000, ends_at: 2023-03-20 09:22:52}",
-        "yama_gandam_data":"{starts_at: 2023-03-20 10:53:29.500000, ends_at: 2023-03-20 12:24:07}",
-        "gulika_kalam_data":"{starts_at: 2023-03-20 13:54:44.500000, ends_at: 2023-03-20 15:25:22}",
-        
-      }
-    */
-
-    console.log(`Good and bad time:${response}`);
     setGoodAndBadTimes(response)
     setLoading(false)
   }
@@ -204,7 +145,6 @@ const Today = () => {
                           
                           nakshatraDurationMethod(parsedOutput);
                         } 
-                        //amritKaalMethod(outputArray)
                       } )
                       .catch(error => console.log(`Error fetching data.`))
   }
@@ -215,7 +155,6 @@ const Today = () => {
     fetchChoghadiyaOfDate(today,'yoga-durations')
     fetchChoghadiyaOfDate(today,'nakshatra-durations')
     fetchChoghadiyaOfDate(today,'good-bad-times')
-    //fetchChoghadiyaOfDate(today,'amrit-kaal')
   }, [])
   
 
